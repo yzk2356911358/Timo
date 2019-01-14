@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title></title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<script type="text/javascript">
+	function checkInput() {
+		var name = document.form1.name.value;
+		var tel = document.form1.tel.value;
+		var companyname = document.form1.companyname.value;
+		var Businesstype = document.form1.Businesstype.value;
+		var grade = document.form1.grade.value;
+		var trackinggrade = document.form1.trackinggrade.value;
+		var trackingtime = document.form1.trackingtime.value;
+		var memorandum = document.form1.memorandum.value;
+		if (name == "") {
+			alert("姓名不能为空");
+			return false;
+		} else if (name.length > 4) {
+			alert("姓名错误");
+			return false;
+		} else if (tel == "") {
+			alert("请输入电话");
+			return false;
+		} else if (tel == "" || tel.length != 11) {
+			alert("电话错误");
+			return false;
+		} else if (companyname == "") {
+			alert("请输入公司名字");
+			return false;
+		} else if (Businesstype == "请选择项目") {
+			alert("请选择项目");
+			return false;
+		} else if (grade == "") {
+			alert("请选择意向等级");
+			return false;
+		} else if (trackinggrade == "") {
+			alert("请选择跟踪计划等级");
+			return false;
+		} else if (trackingtime == "") {
+			alert("请选择追踪时间");
+			return false;
+		} else if (memorandum == "") {
+			alert("请输入备注");
+			return false;
+		} else {
+			return true;
+		}
+	}
+</script>
+</head>
+<body>
+	<form action="/client/updateclient" method="post" name="form1"
+		onsubmit="return checkInput()">
+		<input type="text" name="id" id="id" th:value="${client.id}"
+			style="display: none;">
+		<table class="table table-bordered table-hover definewidth m10">
+			<tr>
+				<td width="10%" class="tableleft">姓名</td>
+				<td><input type="text" name="name" id="name"
+					th:value="${client.name}" /></td>
+				<td class="tableleft">公司名称</td>
+				<td><input type="text" name="companyname" id="companyname"
+					th:value="${client.companyname}" /></td>
+			</tr>
+			<tr>
+				<td class="tableleft">电话</td>
+				<td><input type="text" name="tel" id="tel"
+					th:value="${client.tel}" /></td>
+				<td class="tableleft">跟踪计划等级</td>
+				<td><select name="trackinggrade" id="trackinggrade">
+						<option value="A(3天内)"
+							th:selected="${client.trackinggrade=='A(3天内)'}">A(3天内)</option>
+						<option value="B(7天内)"
+							th:selected="${client.trackinggrade=='B(7天内)'}">B(7天内)</option>
+						<option value="C(15天内)"
+							th:selected="${client.trackinggrade=='C(15天内)'}">C(15天内)
+						</option>
+						<option value="D(一个月内)"
+							th:selected="${client.trackinggrade=='D(一个月内)'}">D(一个月内)
+						</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td width="10%" class="tableleft">业务类型</td>
+				<td><input type="text" name="businesstype"
+					th:value="${client.businesstype}"> <!--<select name="businesstype" id="lang1"
+					th:value="${client.businesstype}"></select> 
+					 	<ul id="ck1">
+						<li><label><input type="checkbox">工商新办</label></li>
+						<li><label><input type="checkbox">工商注册</label></li>
+						<li><label><input type="checkbox">财税代理</label>
+						<li><label><input type="checkbox">行业许可</label></li>
+						<li><label><input type="checkbox">建造师</label></li>
+						<li><label><input type="checkbox">职称</label></li>
+						<li><label><input type="checkbox">九大员</label></li>
+						<li><label><input type="checkbox">资质新办理</label></li>
+						<li><label><input type="checkbox">资质转让</label></li>
+						<li><label><input type="checkbox">资质购买</label></li>
+						<li><label><input type="checkbox">安许</label></li>
+					</ul> --></td>
+				<td class="tableleft">意向等级</td>
+				<td><select id="grade" name="grade">
+						<option value="A" th:selected="${client.grade=='A'}">A
+						<option value="B" th:selected="${client.grade=='B'}">B
+						<option value="C" th:selected="${client.grade=='C'}">C
+						<option value="D" th:selected="${client.grade=='D'}">D
+						<option value="O" th:selected="${client.grade=='D'}">O
+				</select></td>
+			</tr>
+			<tr>
+				<td width="10%" class="tableleft">资源来源</td>
+				<td><select name="source" id="source">
+						<option value="软件" selected="selected">软件
+						<option value="推荐">推荐
+						<option value="网站">网站
+				</select></td>
+
+				<td class="tableleft">跟踪时间</td>
+				<td><input type="date" name="trackingtime" id="trackingtime"
+					th:value="${client.trackingtime}" /></td>
+			</tr>
+			<tr>
+				<td class="tableleft">性别</td>
+				<td><select name="genre">
+						<option value="男" th:selected="${client.genre=='男'}">男</option>
+						<option value="女" th:selected="${client.genre=='女'}">女</option>
+				</select></td>
+
+				<td class="tableleft">备注</td>
+				<td><textarea style="width: 230px; height: 80px;" rows="3"
+						cols="20" hidden="30px" name="memorandum" id="memorandum">[[${client.memorandum}]]</textarea></td>
+			</tr>
+			<tr>
+				<td class="tableleft"></td>
+				<td style="line-height: 80px">
+					<button type="submit" class="btn btn-primary">保存</button>
+					&nbsp;&nbsp; <a th:href="@{/client/getallclient}"><button
+							type="button" class="btn btn-success" name="backid" id="backid">
+							返回列表</button></a>
+					<h4 style="color: red" th:text="${error}"></h4>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

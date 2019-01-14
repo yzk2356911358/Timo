@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<title></title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+	<form class="form-inline definewidth m20" action="index.html"
+		method="get"></form>
+	<table class="table table-bordered table-hover definewidth m10">
+		<thead>
+			<tr>
+				<th>客户姓名</th>
+				<th>电话</th>
+				<th>公司名称</th>
+				<th>性别</th>
+				<th>资源来源</th>
+				<th>业务类型</th>
+				<th>意向等级</th>
+				<th>跟踪计划等级</th>
+				<th>跟踪时间</th>
+				<th>备注</th>
+				<th colspan="2" style="">操作</th>
+			</tr>
+		</thead>
+
+		<tr th:each="temp:${list}">
+			<td th:text="${temp.name}"></td>
+			<td th:text="${temp.tel}"></td>
+			<td th:text="${temp.companyname}"></td>
+			<td th:text="${temp.genre}"></td>
+			<td th:text="${temp.source}"></td>
+			<td th:text="${temp.businesstype}"></td>
+			<td th:text="${temp.grade}"></td>
+			<td th:text="${temp.trackinggrade}"></td>
+			<td th:text="${temp.trackingtime}"></td>
+			<td><textarea rows="" cols="" th:text="${temp.memorandum}"
+					style="height: 15px; width: 100px;"></textarea></td>
+			<td><a th:href="@{/client/usersaveclient(id=${temp.id})}">保存</a></td>
+		</tr>
+	</table>
+	<br /> &nbsp;&nbsp;&nbsp;
+</body>
+</html>
